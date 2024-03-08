@@ -1,0 +1,9 @@
+README.md
+setup.cfg
+setup.py
+src/FilmDiary.egg-info/PKG-INFO
+src/FilmDiary.egg-info/SOURCES.txt
+src/FilmDiary.egg-info/dependency_links.txt
+src/FilmDiary.egg-info/not-zip-safe
+src/FilmDiary.egg-info/requires.txt
+src/FilmDiary.egg-info/top_level.txt

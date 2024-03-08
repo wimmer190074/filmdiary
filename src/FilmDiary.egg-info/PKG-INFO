@@ -1,0 +1,6 @@
+Metadata-Version: 2.1
+Name: FilmDiary
+Version: 1.0.0
+Summary: "This is a tool to log your watched movies."
+Author: Jan Wimmer
+Provides-Extra: dev
