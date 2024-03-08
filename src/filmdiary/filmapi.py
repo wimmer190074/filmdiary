@@ -1,6 +1,9 @@
+"""This unit is used to get accurate movie metadata."""
+
 from tmdbv3api import TMDb, Search
 
 class FilmAPI:
+    """This class uses the library tmdbv3api to load movie metadata."""
     def __init__(self, title, year):
         self.title = title
         self.year = year
@@ -19,6 +22,7 @@ class FilmAPI:
             self.release_date = movie.release_date
             self.overview = movie.overview
             self.poster_url = self.base_url + self.size + movie.poster_path
+            self.id = movie.id
         else:
             self.title = None
             self.release_date = None
