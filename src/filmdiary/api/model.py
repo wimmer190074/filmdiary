@@ -12,5 +12,5 @@ class FilmData(Base):
     id = Column(Integer, primary_key=True)
     film_title = Column(String)
     film_year = Column(Integer)
-    api_id = Column(String)
+    api_id = Column(Integer)
     date_last_watched = Column(DateTime)
