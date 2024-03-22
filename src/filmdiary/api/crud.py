@@ -34,12 +34,16 @@ class FilmDataCRUD:
         session.close()
         return film
 
-    def update_film(self, film_id, new_title, new_year, new_date_last_watched=None):
+    def update_film(self, film_id, new_title=None, new_year=None, new_api_id=None, new_date_last_watched=None):
         session = self.Session()
         film = session.query(FilmData).filter_by(id=film_id).first()
         if film:
-            film.film_title = new_title
-            film.film_year = new_year
+            if new_title:
+                film.film_title = new_title
+            if new_year:
+                film.film_year = new_year
+            if new_api_id:
+                film.api_id = new_api_id
             if new_date_last_watched:
                 film.date_last_watched = new_date_last_watched
             session.commit()

@@ -1,85 +1,46 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div>
+    <h1>Title: {{ title }}</h1>
+    <p>Release Date: {{ releaseDate }}</p>
+    <p>Overview: {{ overview }}</p>
+    <img :src="posterUrl" alt="Movie Poster">
+    <p>ID: {{ id }}</p>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script>
+import axios from 'axios';
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+export default {
+  data() {
+    return {
+      title: null,
+      releaseDate: null,
+      overview: null,
+      posterUrl: null,
+      id: null,
+      apiKey: '45fcb9bb0aafa77e966eba96db763446',
+      baseUrl: 'https://api.themoviedb.org/3',
+      posterBasePath: 'https://image.tmdb.org/t/p/original'
+    };
+  },
+  methods: {
+    async fetchMovieById(apiId) {
+      try {
+        const response = await axios.get(`${this.baseUrl}/movie/${apiId}?api_key=${this.apiKey}`);
+        const film = response.data;
+        this.title = film.title;
+        this.releaseDate = film.release_date;
+        this.overview = film.overview;
+        this.posterUrl = this.posterBasePath + film.poster_path;
+        this.id = film.id;
+      } catch (error) {
+        console.error('Error fetching movie:', error);
+      }
+    }
+  },
+  async created() {
+    await this.fetchMovieById(157336);
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+};
+</script>

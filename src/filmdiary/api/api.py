@@ -40,7 +40,7 @@ def get_film(film_id: int):
         return {"message": "Film not found."}
 
 @app.put("/film/{film_id}")
-def update_film(film_id: int, title: str, year: int, api_id: int = None, date_last_watched: str = None):
+def update_film(film_id: int, title: str = None, year: int = None, api_id: int = None, date_last_watched: str = None):
     db.update_film(film_id, title, year, api_id, date_last_watched)
     return {"message": "Film updated successfully."}
 
