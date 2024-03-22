@@ -3,8 +3,6 @@
 from filmdiary import FilmAPI
 from filmdiary import FilmDataCRUD
 
-
-
 # CRUD TEST
 
 crud = FilmDataCRUD()
