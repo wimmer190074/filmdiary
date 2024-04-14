@@ -1,14 +1,14 @@
 <template>
   <div>
-    <button @click="fetchFilms">Get Films</button>
-    <ul>
-      <li v-for="film in films" :key="film.id">{{ film.title }}</li>
-    </ul>
+    <NavBar></NavBar>
+    <FilmGallery :films="films"></FilmGallery>
   </div>
 </template>
 
 <script lang="ts">
 import axios from 'axios';
+import NavBar from "../components/Navbar.vue";
+import FilmGallery from "../components/FilmGallery.vue";
 
 export default {
   name: 'Watched',
@@ -17,11 +17,20 @@ export default {
       films: [] as any[]
     };
   },
+  components: {
+    NavBar,
+    FilmGallery
+  },
+  created() {
+    this.fetchFilms();
+  },
   methods: {
     async fetchFilms() {
       try {
-        const response = await axios.get('https://ominous-palm-tree-65rrp9pg4r93p4g-8000.app.github.dev/films/');
-        this.films = response.data; // Update films array with the response data
+        const response = await axios.get('http://127.0.0.1:8000/films/');
+        this.films = response.data.map((film: any) => ({
+          ...film,
+        }));
       } catch (error) {
         console.error('Error fetching films:', error);
       }

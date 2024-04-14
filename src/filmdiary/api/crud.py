@@ -5,7 +5,7 @@ from filmdiary import FilmAPI
 
 class FilmDataCRUD:
     def __init__(self):
-        self.engine = create_engine('sqlite:////workspaces/filmdiary/film_database.db')
+        self.engine = create_engine('sqlite:///film_database.db')
         Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
 

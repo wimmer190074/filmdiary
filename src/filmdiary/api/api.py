@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from filmdiary import FilmDataCRUD
+from filmdiary import FilmAPI
 from typing import List
 
 app = FastAPI()
+film_api = FilmAPI()
+
 db = FilmDataCRUD()
 
 
@@ -16,11 +19,13 @@ def get_films():
     films = []
     films_data = db.get_all_films()
     for film in films_data:
+        film_api.fetch_movie_by_id(film.api_id)
         films.append({
             "id": film.id,
             "title": film.film_title,
             "year": film.film_year,
-            "api_id": film.api_id,
+            "description": film_api.overview,
+            "poster": film_api.poster_url,
             "date_last_watched": film.date_last_watched
         })
     return films
@@ -28,12 +33,15 @@ def get_films():
 @app.get("/film/{film_id}")
 def get_film(film_id: int):
     film = db.get_film_by_id(film_id)
+    
     if film:
+        film_api.fetch_movie_by_id(film.api_id)
         return {
             "id": film.id,
             "title": film.film_title,
             "year": film.film_year,
-            "api_id": film.api_id,
+            "description": film_api.overview,
+            "poster": film_api.poster_url,
             "date_last_watched": film.date_last_watched
         }
     else:
