@@ -3,7 +3,7 @@
 from .filmapi import FilmAPI
 from .api.model import FilmData, Base
 from .api.crud import FilmDataCRUD
-from .api.model_types import Film
+from .api.model_types import Film, FilmUpdate
 
 __exports__ = [
     FilmAPI,
@@ -11,4 +11,5 @@ __exports__ = [
     Base, 
     FilmDataCRUD,
     Film,
+    FilmUpdate
 ]

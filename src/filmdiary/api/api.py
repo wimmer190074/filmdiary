@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from filmdiary import FilmDataCRUD
 from filmdiary import FilmAPI
-from filmdiary import Film
+from filmdiary import Film, FilmUpdate
 
 from typing import List
 
@@ -51,8 +51,9 @@ def get_film(film_id: int):
         return {"message": "Film not found."}
 
 @app.put("/film/{film_id}")
-def update_film(film_id: int, title: str = None, year: int = None, api_id: int = None, date_last_watched: str = None):
-    db.update_film(film_id, title, year, api_id, date_last_watched)
+def update_film(filmupdate: FilmUpdate):
+    db_film = FilmUpdate(**filmupdate.model_dump())
+    db.update_film(db_film.id, None, None, None, db_film.date_last_watched)
     return {"message": "Film updated successfully."}
 
 @app.delete("/film/{film_id}")
