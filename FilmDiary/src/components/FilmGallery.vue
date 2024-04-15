@@ -9,6 +9,9 @@
               <div class="uk-card-badge uk-label" v-if="film.date_last_watched">
                 <p class="col2">Last Watched on: {{ film.date_last_watched }}</p>
               </div>
+              <div class="uk-iconnav col">
+                <li><a href="#" uk-icon="icon: file-edit"></a></li>
+              </div>
             </div>
           </div>
           <div class="uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{ 'background-image': 'url(' + film.poster + ')' }" v-if="isHovered !== film.id">

@@ -11,10 +11,7 @@
                         <button class="uk-button uk-button-default navsmallscreen" type="button" uk-toggle="target: #offcanvas-nav"><span uk-icon="icon: menu; ratio: 2"></span></button>
                         <!-- <li><router-link class="uk-logo" to="/"><img src="" width="100"/></router-link></li> -->
                         <li class="navbigscreen">
-                          <router-link to="/">Home</router-link>
-                        </li>
-                        <li class="navbigscreen">
-                          <router-link to="/watched">Watched Movies</router-link>
+                          <router-link to="/">Watched Movies</router-link>
                         </li>
                       </ul>
                     </div>
@@ -26,8 +23,7 @@
         <div id="offcanvas-nav" uk-offcanvas="mode: push; overlay: true" class="navsmallscreen">
             <div class="uk-offcanvas-bar offcanvasstyle">
               <ul class="uk-nav uk-nav-primary uk-margin-auto-vertical">
-                <li class="uk-active"><router-link to="/">Home</router-link></li>
-                <li><router-link to="/watched">Watched</router-link></li>
+                <li><router-link to="/">Watched</router-link></li>
               </ul>
             </div>
           </div>

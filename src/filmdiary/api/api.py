@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from filmdiary import FilmDataCRUD
 from filmdiary import FilmAPI
-from filmdiary import FilmData, Film
+from filmdiary import Film
 
 from typing import List
 
@@ -14,7 +14,7 @@ db = FilmDataCRUD()
 @app.post("/film/")
 def create_film(film: Film):
     db_film = Film(**film.model_dump())
-    db.create_film(db_film.title, db_film.year)
+    db.create_film(db_film.title, db_film.year, None, db_film.date_last_watched)
     return {"message": "Successfully added Film."}
 
 @app.get("/films/")

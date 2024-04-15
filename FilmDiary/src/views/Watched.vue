@@ -1,6 +1,7 @@
 <template>
   <div>
     <NavBar></NavBar>
+    <EntryField></EntryField>
     <FilmGallery :films="films"></FilmGallery>
   </div>
 </template>
@@ -9,6 +10,8 @@
 import axios from 'axios';
 import NavBar from "../components/Navbar.vue";
 import FilmGallery from "../components/FilmGallery.vue";
+import IconNav from "../components/IconNav.vue";
+import EntryField from "../components/EntryField.vue";
 
 export default {
   name: 'Watched',
@@ -19,10 +22,13 @@ export default {
   },
   components: {
     NavBar,
-    FilmGallery
+    FilmGallery,
+    IconNav,
+    EntryField
   },
   created() {
-    this.fetchFilms();
+    this.fetchFilms(); // Initial fetch
+    setInterval(this.fetchFilms, 5000); // Poll every 5 seconds (adjust as needed)
   },
   methods: {
     async fetchFilms() {
