@@ -6,12 +6,15 @@
             <div class="uk-card-body card-body">
               <h3 class="col">{{ film.title }}</h3>
               <p class="col">{{ film.description }}</p>
+              <div class="uk-card-badge uk-label" v-if="film.date_last_watched">
+                <p class="col2">{{ film.date_last_watched }}</p>
+              </div>
             </div>
           </div>
           <div class="uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{ 'background-image': 'url(' + film.poster + ')' }" v-if="isHovered !== film.id">
             <div class="uk-card-body card-body">
-              <h3 class="col">{{ film.title }}</h3>
-              <p class="col">{{ film.description }}</p>
+                <h3 class="col">{{ film.title }}</h3>
+                <p class="col">{{ film.description }}</p>
             </div>
           </div>
         </div>
@@ -58,6 +61,10 @@
   .col {
     color: white;
   }
+
+  .col2 {
+    color: black
+  }
   
   .card-body {
     display: none;
@@ -65,6 +72,10 @@
   
   .card-container:hover .card-body {
     display: block;
+  }
+
+  .uk-card-badge {
+    background-color: white;
   }
   </style>
   
