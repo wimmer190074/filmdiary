@@ -3,13 +3,10 @@ from filmdiary import FilmDataCRUD
 from filmdiary import FilmAPI
 from filmdiary import Film, FilmUpdate
 
-from typing import List
-
 app = FastAPI()
 film_api = FilmAPI()
 
 db = FilmDataCRUD()
-
 
 @app.post("/film/")
 def create_film(film: Film):

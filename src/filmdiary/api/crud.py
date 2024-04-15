@@ -4,8 +4,11 @@ from filmdiary import Base, FilmData
 from filmdiary import FilmAPI
 
 class FilmDataCRUD:
-    def __init__(self):
-        self.engine = create_engine('sqlite:///film_database.db')
+    def __init__(self, engine=None):
+        if engine:
+            self.engine = engine
+        else:
+            self.engine = create_engine('sqlite:///film_database.db')
         Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
 

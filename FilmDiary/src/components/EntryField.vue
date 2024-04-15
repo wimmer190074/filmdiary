@@ -57,6 +57,8 @@ export default {
       })
       .catch(error => {
         console.error('There was a problem with your fetch operation:', error);
+        document.getElementById('film-title').value = '';
+        document.getElementById('entry-date').value = '';
       });
     }
   }
