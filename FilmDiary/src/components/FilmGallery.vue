@@ -1,13 +1,13 @@
 <template>
     <div class="uk-grid uk-child-width-1-3@s uk-child-width-1-4@m uk-padding" uk-grid>
-      <div v-for="film in films" :key="film.id">
+      <div v-for="film in sortedFilms" :key="film.id">
         <div class="uk-card uk-card-default card-container" @mouseover="hoverCard(film.id, true)" @mouseleave="hoverCard(film.id, false)">
           <div class="uk-background-blend-overlay uk-background-secondary uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{ 'background-image': 'url(' + film.poster + ')' }" v-show="isHovered === film.id">
             <div class="uk-card-body card-body">
               <h3 class="col">{{ film.title }}</h3>
               <p class="col">{{ film.description }}</p>
               <div class="uk-card-badge uk-label" v-if="film.date_last_watched">
-                <p class="col2">{{ film.date_last_watched }}</p>
+                <p class="col2">Last Watched on: {{ film.date_last_watched }}</p>
               </div>
             </div>
           </div>
@@ -35,6 +35,13 @@
         isHovered: {}
       };
     },
+    computed: {
+      sortedFilms() {
+        return this.films.slice().sort((a, b) => {
+          return new Date(b.date_last_watched) - new Date(a.date_last_watched);
+        });
+      }
+    },
     methods: {
     hoverCard(id, status) {
         if (status) {
@@ -49,7 +56,7 @@
   
   <style>
   .card-container {
-    height: 500px;
+    height: 60vh;
     width: auto;
   }
   

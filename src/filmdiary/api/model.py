@@ -14,4 +14,3 @@ class FilmData(Base):
     film_year = Column(Integer)
     api_id = Column(Integer)
     date_last_watched = Column(String)
-    
