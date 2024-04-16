@@ -14,15 +14,12 @@ def test_client():
 
 @pytest.fixture(scope="session", autouse=True)
 def cleanup_test_database(request):
-    # Clean up the test database after all tests have finished
     engine = create_engine('sqlite:///test_film_database.db')
     Base.metadata.drop_all(engine)
 
     def finalize():
-        # This function will be called after all tests have finished
         os.remove("test_film_database.db")
 
-    # Register the finalizer function
     request.addfinalizer(finalize)
 
 def test_create_film(test_client):
