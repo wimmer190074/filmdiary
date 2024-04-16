@@ -1,9 +1,11 @@
+"""The API that connects the backend with the frontend."""
 from fastapi import FastAPI
 from filmdiary import FilmDataCRUD
 from filmdiary import FilmAPI
 from filmdiary import Film, FilmUpdate
 
 def create_app(engine=None):
+    """Creates the API."""
     app = FastAPI()
     film_api = FilmAPI()
     db = FilmDataCRUD(engine)
@@ -33,7 +35,7 @@ def create_app(engine=None):
     @app.get("/film/{film_id}")
     def get_film(film_id: int):
         film = db.get_film_by_id(film_id)
-        
+
         if film:
             film_api.fetch_movie_by_id(film.api_id)
             return {
@@ -48,7 +50,7 @@ def create_app(engine=None):
             return {"message": "Film not found."}
 
     @app.put("/film/{film_id}")
-    def update_film(film_id: int, filmupdate: FilmUpdate):
+    def update_film(filmupdate: FilmUpdate):
         db_film = FilmUpdate(**filmupdate.model_dump())
         db.update_film(db_film.id, None, None, None, db_film.date_last_watched)
         return {"message": "Film updated successfully."}

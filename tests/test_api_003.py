@@ -1,5 +1,4 @@
 import pytest
-import requests
 from sqlalchemy import create_engine
 from filmdiary import Base
 from filmdiary.api.api import create_app
@@ -7,7 +6,6 @@ from fastapi.testclient import TestClient
 
 @pytest.fixture
 def test_client():
-    # Use the testing database for the API
     engine = create_engine('sqlite:///test_film_database.db')
     app = create_app(engine)
     with TestClient(app) as client:
@@ -19,18 +17,18 @@ def test_create_film(test_client):
         "year": 2010,
         "date_last_watched": "2024-04-15"
     }
-    response = test_client.post("/film/", json=payload)  # Use test_client.post
+    response = test_client.post("/film/", json=payload)
     assert response.status_code == 200
     assert response.json()["message"] == "Successfully added Film."
 
 def test_get_films(test_client):
     # Test retrieving all films
-    response = test_client.get("/films/")  # Use test_client.get
+    response = test_client.get("/films/")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
 def test_get_film(test_client):
-    response = test_client.get("/film/1")  # Use test_client.get
+    response = test_client.get("/film/1")
     assert response.status_code == 200
     assert response.json().get("id") == 1
 
