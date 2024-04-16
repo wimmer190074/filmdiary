@@ -11,5 +11,5 @@ __exports__ = [
     Base, 
     FilmDataCRUD,
     Film,
-    FilmUpdate
+    FilmUpdate,
 ]

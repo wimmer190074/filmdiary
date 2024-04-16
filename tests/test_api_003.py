@@ -1,42 +1,55 @@
 import pytest
 import requests
+from sqlalchemy import create_engine
+from filmdiary import Base
+from filmdiary.api.api import create_app
+from fastapi.testclient import TestClient
 
 @pytest.fixture
-def api_url():
-    return "http://127.0.0.1:8000"
+def test_client():
+    # Use the testing database for the API
+    engine = create_engine('sqlite:///test_film_database.db')
+    app = create_app(engine)
+    with TestClient(app) as client:
+        yield client
 
-def test_create_film(api_url):
+def test_create_film(test_client):
     payload = {
         "title": "Inception",
         "year": 2010,
         "date_last_watched": "2024-04-15"
     }
-    response = requests.post(f"{api_url}/film/", json=payload)
+    response = test_client.post("/film/", json=payload)  # Use test_client.post
     assert response.status_code == 200
     assert response.json()["message"] == "Successfully added Film."
 
-def test_get_films(api_url):
+def test_get_films(test_client):
     # Test retrieving all films
-    response = requests.get(f"{api_url}/films/")
+    response = test_client.get("/films/")  # Use test_client.get
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
-def test_get_film(api_url):
-    response = requests.get(f"{api_url}/film/13")
+def test_get_film(test_client):
+    response = test_client.get("/film/1")  # Use test_client.get
     assert response.status_code == 200
-    assert response.json().get("id") == 13
+    assert response.json().get("id") == 1
 
-def test_update_film(api_url):
+def test_update_film(test_client):
     payload = {
         "id": 1,  
         "date_last_watched": "2024-04-16"
     }
-    response = requests.put(f"{api_url}/film/1", json=payload)
+    response = test_client.put("/film/1", json=payload)  # Use test_client.put
     assert response.status_code == 200
     assert response.json()["message"] == "Film updated successfully."
 
-def test_delete_film(api_url):
+def test_delete_film(test_client):
     # Test deleting a film
-    response = requests.delete(f"{api_url}/film/1")
+    response = test_client.delete("/film/1")  # Use test_client.delete
     assert response.status_code == 200
     assert response.json()["message"] == "Film deleted successfully."
+
+@pytest.fixture()
+def cleanup_test_database():
+    engine = create_engine('sqlite:///test_film_database.db')
+    Base.metadata.drop_all(engine)
