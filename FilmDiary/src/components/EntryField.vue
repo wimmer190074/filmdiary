@@ -54,6 +54,7 @@ export default {
         console.log(data);
         document.getElementById('film-title').value = '';
         document.getElementById('entry-date').value = '';
+        this.$emit('fetch-film');
       })
       .catch(error => {
         console.error('There was a problem with your fetch operation:', error);

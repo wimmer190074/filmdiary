@@ -95,6 +95,7 @@ export default {
       })
       .then(data => {
         console.log(data);
+        this.$emit('fetch-film');
       })
       .catch(error => {
         console.error('There was a problem with your fetch operation:', error);
@@ -110,7 +111,7 @@ export default {
           throw new Error('Network response was not ok');
         }
         console.log('Film deleted successfully');
-        // Optionally, you can update your local data or refresh the film list here
+        this.$emit('fetch-film');
       } catch (error) {
         console.error('There was a problem with your fetch operation:', error);
       }
@@ -137,6 +138,7 @@ export default {
           throw new Error('Network response was not ok');
         }
         console.log('Film updated successfully');
+        this.$emit('fetch-film');
         UIkit.modal("#editModal").hide();
       } catch (error) {
         console.error('There was a problem with your fetch operation:', error);
@@ -148,7 +150,7 @@ export default {
 
 <style>
 .card-container {
-  height: 65vh;
+  height: 60vh;
   width: auto;
 }
 

@@ -11,7 +11,7 @@
                         <button class="uk-button uk-button-default navsmallscreen" type="button" uk-toggle="target: #offcanvas-nav"><span uk-icon="icon: menu; ratio: 2"></span></button>
                         <!-- <li><router-link class="uk-logo" to="/"><img src="" width="100"/></router-link></li> -->
                         <li class="navbigscreen">
-                          <router-link to="/">Watched Movies</router-link>
+                          <router-link to="/watched">Watched Movies</router-link>
                         </li>
                       </ul>
                     </div>

@@ -1,8 +1,8 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <EntryField></EntryField>
-    <FilmGallery :films="films"></FilmGallery>
+    <EntryField @fetch-film="fetchFilms()"></EntryField>
+    <FilmGallery @fetch-film="fetchFilms()" :films="films"></FilmGallery>
   </div>
 </template>
 
@@ -10,7 +10,6 @@
 import axios from 'axios';
 import NavBar from "../components/Navbar.vue";
 import FilmGallery from "../components/FilmGallery.vue";
-import IconNav from "../components/IconNav.vue";
 import EntryField from "../components/EntryField.vue";
 
 export default {
@@ -23,7 +22,6 @@ export default {
   components: {
     NavBar,
     FilmGallery,
-    IconNav,
     EntryField
   },
   created() {
